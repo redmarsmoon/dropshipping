@@ -1,169 +1,83 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Aster & Row — considered essentials for a quieter wardrobe.">
-  <title>Aster & Row — Quiet Essentials</title>
+  <meta name="description" content="Dialashop is building a faster way to browse verified deals across home, tech, tools, outdoors, fashion, and everyday essentials.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://dialashop.com/">
+  <meta name="theme-color" content="#ff4d00">
+  <title>Dialashop | Fresh deals, clearly priced</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <style>.icon-btn svg{display:block;width:100%;height:100%}</style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":"Dialashop","url":"https://dialashop.com/","logo":"https://dialashop.com/assets/dialashop-mark.svg"}
+  </script>
 </head>
 <body>
-  <div class="announcement">
-    <p>Complimentary delivery on orders over $120</p>
-    <p class="announcement-contact">hello@asterandrow.com <span>Mon–Fri, 9–5</span></p>
-  </div>
+  <a class="skip-link" href="#main">Skip to deals</a>
+  <div class="preview-bar" role="status"><strong>Storefront preview</strong><span>Products, pricing, and checkout activate only after verified supplier feeds are connected.</span></div>
 
   <header class="site-header">
-    <button class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span>
-    </button>
-    <a class="logo" href="#">Aster <i>&</i> Row</a>
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a class="active" href="#new">New in</a>
-      <a href="#shop">Shop</a>
-      <a href="#collections">Collections</a>
-      <a href="#journal">Journal</a>
-      <a href="#about">Our story</a>
-    </nav>
-    <div class="header-actions">
-      <button class="icon-btn search-btn" aria-label="Search">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
-      </button>
-      <button class="icon-btn" aria-label="Account">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.7-4 3-6 7-6s6.3 2 7 6"></path></svg>
-      </button>
-      <button class="icon-btn cart-btn" aria-label="Cart with 0 items">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8h11l.8 12H5.7z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path></svg>
-        <span class="cart-count">0</span>
-      </button>
+    <div class="header-main shell">
+      <button class="icon-btn menu-btn" type="button" aria-label="Open categories" aria-expanded="false"><span></span><span></span><span></span></button>
+      <a class="brand" href="/" aria-label="Dialashop home"><span class="brand-mark">D</span><span>DIALA<strong>SHOP</strong></span></a>
+      <form class="site-search" role="search">
+        <label class="sr-only" for="site-search">Search products, brands, categories, SKUs, tags, and features</label>
+        <input id="site-search" type="search" placeholder="Search every deal" autocomplete="off">
+        <button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16.5 16.5 4 4"></path></svg></button>
+      </form>
+      <div class="header-actions">
+        <button class="action-btn account-btn" type="button" aria-label="Account is not yet available"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.7-4 3-6 7-6s6.3 2 7 6"></path></svg><span>Account</span></button>
+        <button class="action-btn cart-btn" type="button" aria-label="Open cart, 0 items"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h2l1.5 10h10L20 8H7"></path><circle cx="9" cy="19" r="1"></circle><circle cx="17" cy="19" r="1"></circle></svg><span>Cart</span><b class="cart-count">0</b></button>
+      </div>
     </div>
+    <nav class="category-nav" aria-label="Shop departments"><div class="shell category-scroll">
+      <a class="active" href="/deals/">All Deals</a><a href="/home-kitchen/">Home &amp; Kitchen</a><a href="/electronics/">Electronics</a><a href="/computers/">Computers</a><a href="/tools-garden/">Tools &amp; Garden</a><a href="/sports-outdoors/">Sports &amp; Outdoors</a><a href="/fashion/">Fashion</a><a href="/grocery-household/">Grocery &amp; Household</a><a class="clearance-link" href="/clearance/">Clearance</a>
+    </div></nav>
   </header>
 
-  <div class="mobile-nav" aria-hidden="true">
-    <button class="mobile-close" aria-label="Close menu">×</button>
-    <a href="#new">New in</a><a href="#shop">Shop</a><a href="#collections">Collections</a>
-    <a href="#journal">Journal</a><a href="#about">Our story</a>
-    <small>Thoughtfully selected. Made to last.</small>
-  </div>
+  <aside class="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav-head"><a class="brand" href="/"><span class="brand-mark">D</span><span>DIALA<strong>SHOP</strong></span></a><button class="panel-close mobile-close" type="button" aria-label="Close categories">&times;</button></div>
+    <nav aria-label="Mobile departments"></nav><p>Built for verified deals. No fake urgency.</p>
+  </aside>
 
-  <div class="search-panel" aria-hidden="true">
-    <form class="search-form">
-      <input type="search" placeholder="Search the collection" aria-label="Search the collection">
-      <button type="submit">Search</button>
-      <button type="button" class="search-close" aria-label="Close search">×</button>
-    </form>
-  </div>
-
-  <main>
-    <section class="hero" id="new">
-      <img src="assets/hero-editorial.png" alt="A curated flat lay of neutral menswear and leather accessories">
-      <div class="hero-copy">
-        <p class="eyebrow">The autumn edit · 2026</p>
-        <h1>Quietly<br><em>considered.</em></h1>
-        <p class="hero-desc">Enduring pieces for everyday rituals, selected in natural textures and effortless proportions.</p>
-        <a class="button dark" href="#shop">Explore the edit <span>↗</span></a>
+  <main id="main">
+    <section class="hero shell" id="all-deals">
+      <div class="hero-main">
+        <div class="hero-copy"><span class="pill">The deal desk is getting ready</span><h1>Big finds.<br><em>Better math.</em></h1><p>Dialashop is a deal-first marketplace for useful products across tech, home, tools, outdoors, fashion, and everyday essentials.</p><div class="hero-actions"><a class="button primary" href="#today">Browse the preview</a><a class="button secondary" href="#deal-alerts">Get deal alerts</a></div></div>
+        <div class="hero-visual" aria-label="Dialashop deal categories"><div class="deal-orbit orbit-one"><span>TECH</span><b>DEALS</b></div><div class="deal-orbit orbit-two"><span>HOME</span><b>FINDS</b></div><div class="deal-ticket"><small>THE DIALA DROP</small><strong>Fresh value,<br>checked first.</strong><span>NO UNVERIFIED DISCOUNTS</span></div></div>
       </div>
-      <div class="hero-index"><span>01</span><i></i><span>03</span></div>
+      <aside class="deal-finder"><span class="eyebrow">Quick deal finder</span><h2>What fits your budget?</h2><div class="budget-links"><button data-budget="25">Under $25</button><button data-budget="50">Under $50</button><button data-budget="100">Under $100</button><button data-condition="Refurbished">Refurbished</button></div><p>Results appear when verified catalog pricing is available.</p></aside>
     </section>
 
-    <section class="intro section-pad">
-      <p class="eyebrow">A considered wardrobe</p>
-      <h2>Fewer, better things.<br><em>Made for the everyday.</em></h2>
-      <p>Our seasonal curation brings together tactile fabrics, timeless forms, and honest details — pieces that feel familiar from the very first wear.</p>
+    <section class="trust-strip"><div class="shell"><p><strong>Verified savings</strong><span>No made-up reference prices</span></p><p><strong>Condition upfront</strong><span>New, open-box, or refurbished</span></p><p><strong>US-first delivery</strong><span>International-ready architecture</span></p><p><strong>Clear checkout</strong><span>Payments activate after integration</span></p></div></section>
+
+    <section class="shop-section shell" id="today">
+      <div class="section-title"><div><span class="eyebrow">Catalog preview</span><h2>Today’s deal mix</h2><p>Sample product types define the future catalog. None are listed as available inventory.</p></div><div class="result-tools"><label for="sort-products">Sort</label><select id="sort-products"><option value="featured">Featured</option><option value="newest">Newest</option><option value="discount">Biggest discount</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option></select></div></div>
+      <div class="filter-row" aria-label="Product filters"><button class="filter-chip active" data-filter="all">All preview items</button><button class="filter-chip" data-filter="New">New</button><button class="filter-chip" data-filter="Refurbished">Refurbished</button><button class="filter-chip" data-filter="Open Box">Open box</button><button class="filter-chip" data-filter="Clearance">Clearance</button></div>
+      <div class="product-grid" id="product-grid" aria-live="polite"></div><p class="no-results" hidden>No preview products match that search or filter.</p>
     </section>
 
-    <section class="collections section-pad" id="collections">
-      <article class="collection-card collection-tailoring">
-        <img src="https://images.unsplash.com/photo-1610652492500-ded49ceeb378?auto=format&fit=crop&w=1200&q=85" alt="Man wearing a tailored neutral suit">
-        <div class="collection-copy">
-          <p>01 / Tailoring</p><h3>Soft structure</h3><a href="#shop">Discover the collection →</a>
-        </div>
-      </article>
-      <article class="collection-card collection-weekend">
-        <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1200&q=85" alt="Relaxed neutral menswear">
-        <div class="collection-copy">
-          <p>02 / Off duty</p><h3>Weekend ease</h3><a href="#shop">Discover the collection →</a>
-        </div>
-      </article>
+    <section class="browse shell" aria-labelledby="browse-heading"><div class="section-title compact"><div><span class="eyebrow">Explore the marketplace</span><h2 id="browse-heading">Shop every department</h2></div></div><div class="department-grid" id="department-grid"></div></section>
+
+    <section class="deal-band" id="clearance"><div class="shell"><div><span class="eyebrow">A major part of Dialashop</span><h2>More ways to find value.</h2></div><div class="deal-type-grid"><article><b>01</b><h3>Clearance</h3><p>Verified markdowns from normal retail pricing.</p></article><article><b>02</b><h3>Open box</h3><p>Condition and included items shown clearly.</p></article><article><b>03</b><h3>Refurbished</h3><p>Renewal standard and warranty stated upfront.</p></article><article><b>04</b><h3>Overstock</h3><p>Supplier-backed availability without fake scarcity.</p></article></div></div></section>
+
+    <section class="event-section shell" id="deal-events">
+      <div class="section-title"><div><span class="eyebrow">Reusable deal events</span><h2>Deal drops, organized.</h2></div><a class="text-link" href="#today">See the catalog preview &rarr;</a></div>
+      <div class="event-grid"><article class="event-card event-tech"><span>Event preview</span><h3>Tech refresh</h3><p>Computers, accessories, audio, and smart-home deal types.</p><a href="#electronics">Explore category</a></article><article class="event-card event-home"><span>Event preview</span><h3>Home upgrade</h3><p>Kitchen, cleaning, storage, lighting, and everyday home finds.</p><a href="#home-kitchen">Explore category</a></article><article class="event-card event-under"><span>Price-led collection</span><h3>Under $50</h3><p>Automatically populated when verified prices meet the threshold.</p><button data-budget="50">Preview filter</button></article></div>
     </section>
 
-    <section class="products section-pad" id="shop">
-      <div class="section-heading">
-        <div><p class="eyebrow">The everyday rotation</p><h2>Most wanted</h2></div>
-        <div class="tabs" role="tablist"><button class="active">All pieces</button><button>Clothing</button><button>Accessories</button></div>
-      </div>
-      <div class="product-grid">
-        <article class="product-card" data-category="clothing">
-          <div class="product-image"><span class="badge">New</span><button class="wish" aria-label="Add to wishlist">♡</button><img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=85" alt="Ivory textured overshirt"><button class="quick-add">Quick add</button></div>
-          <div class="product-meta"><div><h3>Textured Overshirt</h3><p>Ivory</p></div><strong>$98</strong></div>
-        </article>
-        <article class="product-card" data-category="clothing">
-          <div class="product-image"><span class="badge sale">–20%</span><button class="wish" aria-label="Add to wishlist">♡</button><img src="https://images.unsplash.com/photo-1598808503746-f34c53b9323e?auto=format&fit=crop&w=800&q=85" alt="Camel wool jacket"><button class="quick-add">Quick add</button></div>
-          <div class="product-meta"><div><h3>Wool Studio Jacket</h3><p>Camel</p></div><strong><s>$145</s> $116</strong></div>
-        </article>
-        <article class="product-card" data-category="accessories">
-          <div class="product-image"><button class="wish" aria-label="Add to wishlist">♡</button><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=85" alt="Brown leather carryall bag"><button class="quick-add">Quick add</button></div>
-          <div class="product-meta"><div><h3>Leather Carryall</h3><p>Chestnut</p></div><strong>$172</strong></div>
-        </article>
-        <article class="product-card" data-category="accessories">
-          <div class="product-image"><span class="badge">Bestseller</span><button class="wish" aria-label="Add to wishlist">♡</button><img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=85" alt="Minimal analog wristwatch"><button class="quick-add">Quick add</button></div>
-          <div class="product-meta"><div><h3>Field Watch 02</h3><p>Tobacco</p></div><strong>$134</strong></div>
-        </article>
-      </div>
-      <a class="text-link" href="#shop">View the full collection <span>→</span></a>
-    </section>
-
-    <section class="manifesto" id="about">
-      <div class="manifesto-image"><img src="https://images.unsplash.com/photo-1516826957135-700dedea698c?auto=format&fit=crop&w=1400&q=85" alt="Friends in relaxed, timeless clothing"></div>
-      <div class="manifesto-copy">
-        <p class="eyebrow">Our philosophy</p>
-        <h2>Clothes that belong<br>in your <em>life.</em></h2>
-        <p>We believe style gets better when it becomes personal. That means natural materials, useful details and silhouettes that move with you — never against you.</p>
-        <a class="button outline" href="#about">Read our story <span>↗</span></a>
-        <div class="manifesto-note"><strong>01</strong><span>Small-batch selections<br>from independent makers</span></div>
-      </div>
-    </section>
-
-    <section class="journal section-pad" id="journal">
-      <div class="section-heading"><div><p class="eyebrow">Notes from the studio</p><h2>The journal</h2></div><a href="#journal">Read all stories →</a></div>
-      <div class="journal-grid">
-        <article><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=85" alt="Minimal clothing studio"><p>Field notes · 6 min read</p><h3>How to build a slower, more useful wardrobe</h3></article>
-        <article><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=85" alt="Neutral linen details"><p>Materials · 4 min read</p><h3>The quiet character of natural linen</h3></article>
-        <article><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=85" alt="Curated fashion rail"><p>Studio visit · 8 min read</p><h3>Inside the workshop: a study in patience</h3></article>
-      </div>
-    </section>
-
-    <section class="service-strip">
-      <div><span>↗</span><p><strong>Free delivery</strong>On orders over $120</p></div>
-      <div><span>↺</span><p><strong>Easy returns</strong>30-day return window</p></div>
-      <div><span>◇</span><p><strong>Secure checkout</strong>Protected payments</p></div>
-      <div><span>✦</span><p><strong>Personal support</strong>We’re here to help</p></div>
-    </section>
+    <section class="newsletter-section" id="deal-alerts"><div class="shell newsletter-layout"><div><span class="eyebrow">Deal alerts</span><h2>The good stuff,<br>when it’s real.</h2><p>Join the future Dialashop list for new deals, clearance, and price drops.</p></div><form class="newsletter"><label for="email">Email address</label><div><input id="email" type="email" placeholder="you@example.com" required><button type="submit">Notify me</button></div><label class="consent"><input type="checkbox" required> I agree to receive Dialashop deal alerts. Unsubscribe anytime.</label><p class="form-message" role="status"></p></form></div></section>
   </main>
 
-  <footer>
-    <div class="footer-lead"><p class="eyebrow">Letters from Aster & Row</p><h2>A slower note,<br>once in a while.</h2></div>
-    <form class="newsletter"><label for="email">Email address</label><div><input id="email" type="email" placeholder="you@example.com" required><button>Join the list →</button></div><p class="form-message" role="status"></p></form>
-    <div class="footer-links">
-      <a class="logo" href="#">Aster <i>&</i> Row</a>
-      <div><strong>Shop</strong><a href="#new">New arrivals</a><a href="#shop">All pieces</a><a href="#collections">Collections</a></div>
-      <div><strong>Help</strong><a href="#">Delivery & returns</a><a href="#">Contact</a><a href="#">Size guide</a></div>
-      <div><strong>Follow</strong><a href="#">Instagram</a><a href="#">Pinterest</a><a href="#">Journal</a></div>
-    </div>
-    <div class="footer-bottom"><span>© 2026 Aster & Row</span><span>USD · United States</span><span>Designed with intention</span></div>
-  </footer>
+  <footer><div class="shell footer-grid"><div class="footer-brand"><a class="brand inverse" href="/"><span class="brand-mark">D</span><span>DIALA<strong>SHOP</strong></span></a><p>Deal discovery with the pricing logic to protect both value and margin.</p></div><div><strong>Deals</strong><a href="#today">Today’s Deals</a><a href="#deal-events">Deal Events</a><a href="#clearance">Clearance</a><a href="#today">Open Box</a></div><div><strong>Departments</strong><a href="#electronics">Electronics</a><a href="#home-kitchen">Home &amp; Kitchen</a><a href="#computers">Computers</a><a href="#tools-garden">Tools &amp; Garden</a></div><div><strong>Help</strong><a href="#site-status">Shipping</a><a href="#site-status">Returns</a><a href="#site-status">Contact</a><a href="#site-status">Product condition</a></div></div><div class="shell footer-bottom" id="site-status"><span>&copy; 2026 Dialashop</span><span>USD · United States</span><span>Storefront preview · Transactions disabled</span></div></footer>
 
-  <aside class="cart-drawer" aria-hidden="true">
-    <div class="cart-head"><h2>Your bag</h2><button class="cart-close" aria-label="Close cart">×</button></div>
-    <div class="cart-items"><p class="empty-cart">Your bag is waiting.</p></div>
-    <div class="cart-foot"><div><span>Subtotal</span><strong class="subtotal">$0</strong></div><button class="button dark checkout">Checkout</button></div>
-  </aside>
-  <div class="overlay"></div>
-  <div class="toast" role="status">Added to your bag</div>
-  <script src="script.js"></script>
+  <dialog class="product-dialog"><button class="panel-close product-close" type="button" aria-label="Close product details">&times;</button><div class="product-detail-content"></div></dialog>
+  <aside class="cart-drawer" aria-hidden="true" aria-labelledby="cart-title"><div class="cart-head"><div><span class="eyebrow">Local preview</span><h2 id="cart-title">Your cart</h2></div><button class="panel-close cart-close" type="button" aria-label="Close cart">&times;</button></div><div class="cart-items"></div><div class="cart-foot"><div class="cart-total"><span>Subtotal</span><strong class="subtotal">Pending</strong></div><p>Prices, shipping, tax, and payment are unavailable until verified integrations are active.</p><button class="button primary checkout" type="button" disabled>Checkout unavailable</button><button class="continue-shopping" type="button">Continue shopping</button></div></aside>
+  <div class="overlay"></div><div class="toast" role="status"></div>
+  <script src="script.js" defer></script>
 </body>
 </html>

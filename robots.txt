@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /checkout/
+Disallow: /*?sort=
+Disallow: /*?filter=
+Disallow: /search
+
+Sitemap: https://dialashop.com/sitemap.xml

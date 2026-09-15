@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex,nofollow"><meta name="description" content="Dialashop checkout preview."><title>Checkout preview | Dialashop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../styles.css">
+</head>
+<body class="checkout-page">
+  <div class="preview-bar" role="status"><strong>Checkout preview</strong><span>No order or payment can be submitted.</span></div>
+  <header class="checkout-header shell"><a class="brand" href="/"><span class="brand-mark">D</span><span>DIALA<strong>SHOP</strong></span></a><a href="/">&larr; Continue shopping</a></header>
+  <main class="checkout-layout shell">
+    <section><span class="eyebrow">Secure checkout architecture</span><h1>Delivery details</h1><form class="checkout-form" autocomplete="on">
+      <div class="field-grid"><label>First name<input name="firstName" autocomplete="given-name" required></label><label>Last name<input name="lastName" autocomplete="family-name" required></label></div>
+      <div class="field-grid"><label>Email<input type="email" name="email" autocomplete="email" required></label><label>Phone<input type="tel" name="phone" autocomplete="tel" required></label></div>
+      <label>Country<select name="country" autocomplete="country" required><option value="US">United States</option><option disabled>More countries will be added later</option></select></label>
+      <label>Street address<input name="address" autocomplete="address-line1" required></label><label>Apartment / suite <span>(optional)</span><input name="address2" autocomplete="address-line2"></label>
+      <div class="field-grid three"><label>City<input name="city" autocomplete="address-level2" required></label><label>State<input name="state" autocomplete="address-level1" required></label><label>ZIP code<input name="zip" autocomplete="postal-code" inputmode="numeric" required></label></div>
+      <fieldset disabled><legend>Shipping</legend><div class="disabled-method"><strong>Shipping method pending</strong><span>Live rates require supplier and carrier integrations.</span></div></fieldset>
+      <fieldset disabled><legend>Payment method</legend><div class="disabled-method"><strong>Payments are not connected</strong><span>A secure payment provider must be integrated before launch.</span></div></fieldset>
+      <button class="button primary" type="submit" disabled>Payment unavailable</button>
+    </form></section>
+    <aside class="order-summary"><span class="eyebrow">Order summary</span><h2>No purchasable items</h2><p>Preview-cart items cannot become orders until their price, availability, shipping, and supplier are verified.</p><dl><div><dt>Subtotal</dt><dd>Pending</dd></div><div><dt>Shipping</dt><dd>Pending</dd></div><div><dt>Tax</dt><dd>Pending</dd></div><div class="summary-total"><dt>Total</dt><dd>Pending</dd></div></dl></aside>
+  </main>
+</body>
+</html>
