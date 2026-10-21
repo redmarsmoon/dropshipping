@@ -1,0 +1,5 @@
+{
+  "name": "dialashop", "private": true, "type": "module",
+  "scripts": {"build": "node tools/build.mjs", "test": "node --test", "preview": "python -m http.server 4173 --directory dist", "catalog": "node tools/catalog.mjs", "deploy": "node tools/deploy-pages.mjs"},
+  "engines": {"node": ">=22"}
+}

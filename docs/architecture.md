@@ -1,31 +1,52 @@
-# Dialashop commerce architecture
+﻿# Commerce architecture and integration contract
 
-## Product model
+## Existing foundation retained
 
-The canonical private product record supports identity (`id`, `sku`, `supplierSku`, `supplierId`, `supplier`, `supplierProductId`), merchandising (`name`, `slug`, `brand`, `department`, `category`, `subcategory`, `description`, `shortDescription`, `features`, `specifications`, `images`, `thumbnail`), pricing (`supplierCost`, `normalRetailPrice`, `competitorPrice`, `wootComparablePrice`, `dialashopPrice`, `compareAtPrice`, `discountPercentage`, `minimumMargin`, `currency`, `lastPriceCheck`), commerce (`condition`, `stockStatus`, `stockQuantity`, `variants`, `size`, `color`, `style`, `weight`, `dimensions`), fulfillment (`shippingOrigin`, `shippingRegions`, `shippingCost`, `handlingTime`, `estimatedDelivery`, `supplierUrl`, `sourceReference`), discovery (`tags`, `dealEvent`, `dateAdded`, `dealStart`, `dealEnd`), and SEO (`seoTitle`, `seoDescription`, `canonicalUrl`).
+The original vanilla HTML/CSS/JS storefront, Dialashop orange/acid/navy design, department URLs, checkout URL, logo, editorial asset, and private pricing helper remain. The previous demo product array was removed. The site now builds real HTML routes with shared templates rather than rewriting every route to the homepage.
 
-Private pricing and supplier fields remain in server-side storage. The browser receives only a public projection. No supplier credentials belong in product records.
+`tools/build.mjs` validates and projects `data/catalog.json`, creates category/subcategory and active product pages, and writes sitemap/robots/security headers. `lib/catalog.js` is the common public catalog contract and shopping logic. `script.js` implements browser interactions. `dist/` contains only public artifacts; never publish the repository root.
 
-## Supplier normalization
+## Product boundaries
 
-`functions/_lib/normalize.js` accepts mapped records from approved API, CSV, XML, JSON, or manual sources and converts them to the canonical schema. Every source needs its own adapter configuration. Unknown conditions are rejected rather than guessed.
+The authoritative private record lives outside the public site. Import -> validation -> private staging -> explicit public projection -> build/review -> publication. Draft and archived products do not receive pages, listings, offers or sitemap entries. All fields exported to the browser are allowlisted, including variant objects. Future supplier fields remain private by default. Archived product URLs return 404 unless an explicit replacement redirect is added.
 
-## Pricing
+`functions/_lib/normalize.js` creates draft records from mapped supplier inputs. `pricing.js` calculates the minimum profitable dollar price using the original category profiles, approved reference pricing, processing costs and margin. Convert approved dollar prices to integer cents for variants; never export the decision inputs. `/api/price` retains its server-side token gate and public-only result.
 
-`functions/_lib/pricing.js` uses category-specific margin profiles and calculates a minimum profitable price that includes supplier cost, shipping, payment processing, technology cost, and required margin. It compares that floor with authorized competitor data, any manually supplied comparable-deal price, and a legitimate normal retail price.
+## API boundary
 
-The engine never prices below its profitable floor. If the floor is above the defensible market ceiling, the record is flagged for review instead of published. Savings are generated only when a positive, verified reference price is greater than the final selling price.
+`functions/api/commerce/[[path]].js` is a Cloudflare Pages router. Without a `COMMERCE` service binding it returns 503 `NOT_CONFIGURED`; it never pretends to charge, register a customer, subscribe an email or create an order. Unknown endpoints return 404. Non-webhook requests reject explicit foreign origins; service responses are uncached. This is an integration boundary, not a complete order backend.
 
-The Cloudflare handler in `functions/api/price.js` is inactive until `PRICING_API_TOKEN` is configured. Its response omits supplier cost, margins, and internal rule details.
+Available adapter paths under `/api/commerce/`:
 
-## Deal events
+| Method/path | Service responsibility |
+|---|---|
+| POST quote | Validate US address, re-read product/variant prices and inventory, get supplier/carrier rates and tax |
+| POST checkout | Validate quote, selected shipping method, idempotency key; create durable pending order and Stripe/PayPal hosted payment session |
+| POST webhooks/stripe, webhooks/paypal | Verify raw-body signature, deduplicate event, verify payment amount/currency/order, transition order state transactionally |
+| POST auth/register, auth/login, auth/logout | Managed identity provider, HttpOnly Secure SameSite cookies, CSRF defenses, rate limiting, verification and recovery |
+| GET account, orders | Authenticate and scope every record to the current customer |
+| POST tracking | Require order number and matching email or authenticated ownership; return only safe shipment details with enumeration protection |
+| POST contact, newsletter | Validate, consent, spam/rate limits, configured delivery provider and retention policy |
 
-An event has `id`, `name`, `slug`, `banner`, `shortDescription`, `productIds`, `startDate`, `endDate`, `category`, `seoTitle`, `seoDescription`, and `canonicalUrl`. A product can reference zero or more event IDs. Countdown UI may render only when a valid future `endDate` is present.
+The browser currently validates forms locally and reports unavailable services without transmitting personal fields. To activate an integration, implement and deploy the service first, then wire each form to its configured endpoint and add success/error handling. Forms must not infer success from a redirect or from locally generated values.
 
-## Public routes
+Suggested quote input: `{items:[{productId,variantId,quantity}], address:{firstName,lastName,email,country,address,address2,city,state,zip}}`. Never accept client prices or totals. Quote output: `{quoteId,expiresAt,items,shippingMethods:[{id,label,amountCents,estimatedDelivery}],subtotalCents,taxCents,currency:'USD'}`. Checkout input: `{quoteId,shippingMethodId,provider:'stripe'|'paypal',idempotencyKey}`. Return a provider-hosted payment URL only after the pending order is durably committed. Whitelist payment redirect destinations.
 
-Target routes are `/deals/`, department slugs, `/brands/`, `/brand/{slug}/`, `/product/{slug}/`, `/deals/{event-slug}/`, `/cart/`, and `/checkout/`. Filter, sort, search, and variant states should be non-indexable UI state or canonicalize to their parent page. Product and event pages should be generated at build time only from publishable records.
+Use the proposed server-only `docs/schema.sql` as a starting point for products, variants, suppliers, customers, orders, shipments, adjustments, deduplicated payment events and an outbox. It is not applied automatically. Choose the database and identity provider before implementing persistence. Use crypto-random order IDs/numbers with uniqueness constraints. Never use browser order counters, localStorage accounts, raw card fields, or local confirmation pages as proof of payment.
 
-## Go-live gates
+## Payment and fulfillment lifecycle
 
-A record may be published only when its supplier is approved, rights-cleared images are present, price and stock timestamps are current, condition is explicit, shipping is supported for the destination, and the pricing decision is publishable. Checkout requires a payment processor and order backend; supplier submission starts only after confirmed payment.
+1. Server revalidates cart, shipping eligibility/rates, tax and inventory. Address format checks do not establish deliverability.
+2. Commit pending order and immutable line/address/amount snapshots with an idempotency key. Create hosted Stripe Checkout or the equivalent PayPal approval session with server-only credentials.
+3. Verify signed payment webhook, expected amount/currency/order, and event uniqueness. Confirm the payment transactionally.
+4. Add supplier forwarding and order email work to the durable outbox. Retry with idempotency; send suppliers only their own line items and necessary shipping information.
+5. Ingest inventory and shipment updates from approved suppliers; keep timestamp/freshness checks, carrier, tracking number and fulfillment status. Validate carrier tracking URLs before display.
+6. Send shipment notifications via the configured email provider. Cancellations/returns/refunds use authorized server transitions and provider confirmation, with an audit trail.
+
+Supplier accounts, sync jobs, feed credentials, adapters, approval rules and forwarding remain disconnected. No external supplier is contacted by this foundation.
+
+## Launch requirements
+
+Configure verified store origin; approved business identity/contact channels and policy commitments; supplier sources and image rights; private database and administrator/identity access; Stripe/PayPal secrets and webhook verification; actual carrier/shipping and tax integrations; email delivery/consent; inventory jobs and order operations. Secrets belong in Cloudflare/service environment settings, never public build variables or committed files. Apply retention controls and review access boundaries when the real backend is implemented.
+
+Before accepting orders, exercise sandbox end-to-end orders with signed webhook replay, duplicate events, stale inventory, quote expiry, price changes, failed/abandoned payments, mismatched totals, fulfillment retries, authorization and refunds. Run real desktop/tablet/mobile browser and keyboard checks. No supplier, payment, tax, legal, or delivery claims are manufactured by this implementation.

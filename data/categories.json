@@ -1,0 +1,9 @@
+[
+  {"slug":"home-kitchen","name":"Home & Kitchen","children":["Kitchen","Home","Storage & Cleaning"]},
+  {"slug":"electronics","name":"Electronics","children":["Audio","TV & Video","Smart Home"]},
+  {"slug":"computers","name":"Computers","children":["Laptops","Accessories","Components"]},
+  {"slug":"tools-garden","name":"Tools & Garden","children":["Power Tools","Hand Tools","Garden"]},
+  {"slug":"sports-outdoors","name":"Sports & Outdoors","children":["Fitness","Camping & Hiking","Travel"]},
+  {"slug":"fashion","name":"Fashion","children":["Clothing","Shoes","Accessories"]},
+  {"slug":"grocery-household","name":"Grocery & Household","children":["Pantry","Personal Care","Household"]}
+]

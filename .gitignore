@@ -1,3 +1,10 @@
 *-preview.png
 .DS_Store
 Thumbs.db
+dist/
+dist-test/
+private/
+.env
+.env.*
+.dev.vars
+node_modules/
