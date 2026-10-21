@@ -18,7 +18,7 @@ Generated pages and links; empty catalog states; real-data keyword/department/su
 
 The service router safely returns unavailable responses until a real backend adapter is implemented and bound. Accounts, orders, payment sessions, tax, live shipping, deliverability checks, order numbers/confirmations/history/lookup, customer emails, contact/newsletter submission, supplier sync/forwarding, fulfillment notifications, cancellations, reviews and refunds are not live. The UI says so and submits no personal form data to unconfigured services. No passwords or addresses are persisted locally.
 
-Launch also needs approved business contact details and policies, genuine products/image rights, verified domain, private persistence/admin access, identity provider, Stripe/PayPal credentials and signed webhooks, supplier accounts and email provider. No external services were connected and no deployment or GitHub push was made.
+Launch also needs approved business contact details and policies, genuine products/image rights, verified domain, private persistence/admin access, identity provider, Stripe/PayPal credentials and signed webhooks, supplier accounts and email provider. No external commerce services were connected. Source is maintained on `main`; the generated static site is published separately from `gh-pages` at https://redmarsmoon.github.io/dropshipping/ using `npm.cmd run deploy`. GitHub Pages does not run the Cloudflare integration endpoints.
 
 ## 5. Adding and managing products
 
@@ -26,6 +26,6 @@ See [product-management.md](product-management.md). Import a full JSON batch to 
 
 ## Verification
 
-`npm.cmd run build` produces 51 pages and zero active products. `npm.cmd test` passes 11 tests covering private data boundaries, product validation, same-variant filtering, sorting, corrupt/stale cart records, US addresses, unconfigured/cross-origin/error API behavior, empty live data, future product-page generation with isolated fixtures, and generated links/assets. A fixture build separately verifies product variants, structured offers, sitemap entry and New arrivals while excluding supplier fields; it is deleted afterward.
+`npm.cmd run build` produces 51 pages and zero active products. `npm.cmd test` passes 12 tests covering private data boundaries, product validation, same-variant filtering, sorting, corrupt/stale cart records, US addresses, unconfigured/cross-origin/error API behavior, empty live data, future product-page generation with isolated fixtures, generated links/assets, and GitHub Pages subpath URLs. A fixture build separately verifies product variants, structured offers, sitemap entry and New arrivals while excluding supplier fields; it is deleted afterward.
 
 Browser inventory returned no available apps or browsers, so desktop/tablet/mobile visual checks, real browser cart persistence and interactive accessibility could not be verified in this session. Responsive CSS and semantic controls are implemented, but browser QA remains necessary. Full payment/order/supplier tests must wait for their configured backend. Local preview: `npm.cmd run preview`, then `http://localhost:4173/`.

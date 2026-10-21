@@ -93,7 +93,7 @@ await writeFile(`${root}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><ur
 await writeFile(`${root}/robots.txt`,`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${origin}/sitemap.xml\n`);
 await writeFile(`${root}/.nojekyll`,'');
 await writeFile(`${root}/_headers`,`/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https:; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'\n/api/*\n  Cache-Control: no-store\n`);
-if (output === 'dist') {
+if (output === 'dist' && !basePath) {
   for (const file of ['index.html','checkout/index.html','sitemap.xml','robots.txt']) await cp(`${root}/${file}`,file);
 }
 console.log(`Built ${pages.length} pages, ${products.length} active products. Output: ${output}/`);

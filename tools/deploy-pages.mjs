@@ -18,5 +18,7 @@ git(['add','--all']);
 const changes=execFileSync('git',['status','--porcelain'],{cwd,encoding:'utf8'}).trim();
 if(changes)git(['commit','-m','Deploy generated Dialashop storefront']);
 git(['push','origin','gh-pages']);
-run(gh,['api','--method','PUT',`repos/${repo}/pages`,'-f','build_type=legacy','-f','source[branch]=gh-pages','-f','source[path]=/']);
+if(pages.source?.branch!=='gh-pages' || pages.source?.path!=='/' || pages.build_type!=='legacy') {
+  run(gh,['api','--method','PUT',`repos/${repo}/pages`,'-f','build_type=legacy','-f','source[branch]=gh-pages','-f','source[path]=/']);
+}
 console.log(`Deployment submitted: ${siteURL}/. Confirm the Pages deployment succeeds before reporting it live.`);
