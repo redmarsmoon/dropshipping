@@ -6,7 +6,11 @@ const routes = new Map([
   ['POST auth/login','login'], ['POST auth/register','register'],
   ['POST auth/logout','logout'], ['GET account','account'],
   ['GET orders','listOrders'], ['POST tracking','trackOrder'],
-  ['POST webhooks/stripe','stripeWebhook'], ['POST webhooks/paypal','paypalWebhook']
+  ['POST webhooks/stripe','stripeWebhook'], ['POST webhooks/paypal','paypalWebhook'],
+  ['POST returns','requestReturn'], ['GET returns','listReturns'],
+  ['POST tickets','createTicket'], ['GET tickets','listTickets'],
+  ['POST recovery','saveRecovery'], ['POST recover','restoreRecovery'],
+  ['POST preferences','updatePreferences']
 ]);
 export async function onRequest({request,env,params}) {
   const path = Array.isArray(params.path)?params.path.join('/'):params.path;

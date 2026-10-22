@@ -1,4 +1,6 @@
--- Proposed server-only SQLite/D1 schema. Apply only after choosing/configuring the order service.
+-- Earlier proposed commerce schema retained for design history.
+-- The implemented private SQLite schema is operations/schema.sql.
+-- Do not apply both schemas to the same database.
 PRAGMA foreign_keys = ON;
 CREATE TABLE suppliers (id TEXT PRIMARY KEY, name TEXT NOT NULL, adapter TEXT, status TEXT NOT NULL DEFAULT 'draft');
 CREATE TABLE products (id TEXT PRIMARY KEY, sku TEXT UNIQUE NOT NULL, slug TEXT UNIQUE NOT NULL, status TEXT NOT NULL CHECK(status IN ('draft','active','archived')), public_json TEXT NOT NULL, supplier_id TEXT REFERENCES suppliers(id), supplier_product_id TEXT, supplier_cost_cents INTEGER, sourcing_json TEXT, inventory_checked_at TEXT, price_checked_at TEXT, updated_at TEXT NOT NULL);

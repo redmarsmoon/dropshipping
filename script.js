@@ -1,4 +1,4 @@
-﻿import {escapeHTML as e,money,minPrice,searchProducts,reconcileCart,validateAddress} from '/lib/catalog.js';
+import {escapeHTML as e,money,minPrice,searchProducts,reconcileCart,validateAddress} from '/lib/catalog.js';
 const $ = s=>document.querySelector(s);
 const read = key=>{try{return JSON.parse(localStorage.getItem(key));}catch{return null;}};
 const write = (key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));return true;}catch{message('Browser storage is unavailable. Changes will last only for this page.');return false;}};
@@ -8,7 +8,7 @@ try{const response=await fetch('/data/catalog.json');if(!response.ok)throw Error
 let cart=reconcileCart(read('dialashop-cart-v1'),products);
 let wishlist=read('dialashop-wishlist-v1');
 wishlist=Array.isArray(wishlist)?[...new Set(wishlist.filter(id=>products.some(p=>p.id===id)))]:[];
-function persistCart(){cart=reconcileCart(cart,products);write('dialashop-cart-v1',cart);renderCart();}
+function persistCart(){cart=reconcileCart(cart,products);write('dialashop-cart-v1',cart);renderCart();window.dispatchEvent(new Event('dialashop:cart'));window.dialashopMarketing?.emit('cart_updated',{quantity:cart.reduce((s,l)=>s+l.quantity,0)});}
 function productCard(p){return `<article class="product-card"><a href="/product/${e(p.slug)}/"><img class="catalog-image" src="${e(p.images[0])}" alt="${e(p.name)}" loading="lazy" width="400" height="400"><div class="product-info"><span class="eyebrow">${e(p.brand||p.category)}</span><h3>${e(p.name)}</h3><p>From ${money(minPrice(p))}</p></div></a><button class="button secondary" data-wish="${e(p.id)}">${wishlist.includes(p.id)?'Remove from wishlist':'Save to wishlist'}</button></article>`;}
 const empty=(text)=>`<div class="empty-state"><h2>${text}</h2><p>Explore our departments to find your next good find.</p><a class="button secondary" href="/shop/">Explore the shop</a></div>`;
 function total(){return cart.reduce((sum,line)=>{const p=products.find(p=>p.id===line.productId);return sum+p.variants.find(v=>v.id===line.variantId).priceCents*line.quantity;},0);}
@@ -61,6 +61,6 @@ if(detail){
  }else{form.querySelectorAll('button').forEach(b=>b.disabled=true);message('Product data is unavailable. Reload to try again.');}
 }
 // Services fail closed until server-side adapters are deployed. No personal fields or passwords are sent while unavailable.
-for(const form of document.querySelectorAll('[data-service]'))form.addEventListener('submit',event=>{event.preventDefault();const names={contact:'Messages',newsletter:'Subscriptions',tracking:'Order lookup',login:'Sign-in',register:'Registration'};form.querySelector('.form-message').textContent=`${names[form.dataset.service]} cannot be completed yet. The service is not connected. No information was submitted.`;});
+for(const form of document.querySelectorAll('[data-service]'))form.addEventListener('submit',event=>{event.preventDefault();const names={contact:'Messages',newsletter:'Subscriptions',tracking:'Order lookup',login:'Sign-in',register:'Registration',returns:'Return requests',support:'Support requests'};form.querySelector('.form-message').textContent=`${names[form.dataset.service]} cannot be completed yet. The service is not connected. No information was submitted.`;});
 $('#checkout')?.addEventListener('submit',event=>{event.preventDefault();const status=event.target.querySelector('.form-message');if(!cart.length){status.textContent='Your cart is empty. Add a product before checking delivery options.';return;}if(!validateAddress(Object.fromEntries(new FormData(event.target)))){status.textContent='Enter a complete US address, valid state, ZIP code, and email.';return;}if(cart.some(l=>products.find(p=>p.id===l.productId).variants.find(v=>v.id===l.variantId).availability!=='in_stock')){status.textContent='Your cart includes unavailable items. Remove them before continuing.';return;}status.textContent='Delivery rates, tax, and payments are not connected. No address was submitted and no order was placed.';});
 window.addEventListener('storage',event=>{if(event.key==='dialashop-cart-v1'){cart=reconcileCart(read(event.key),products);renderCart();}if(event.key==='dialashop-wishlist-v1'){const value=read(event.key);wishlist=Array.isArray(value)?value.filter(id=>products.some(p=>p.id===id)):[];renderWishlist();}});

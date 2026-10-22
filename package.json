@@ -1,5 +1,5 @@
 {
   "name": "dialashop", "private": true, "type": "module",
-  "scripts": {"build": "node tools/build.mjs", "test": "node --test", "preview": "python -m http.server 4173 --directory dist", "catalog": "node tools/catalog.mjs", "deploy": "node tools/deploy-pages.mjs"},
-  "engines": {"node": ">=22"}
+  "scripts": {"build": "node tools/build.mjs", "test": "node --test", "preview": "python -m http.server 4173 --directory dist", "catalog": "node tools/catalog.mjs", "deploy": "node tools/deploy-pages.mjs", "operations": "node operations/server.mjs", "admin:user": "node tools/admin.mjs user", "admin:categories": "node tools/admin.mjs seed-categories", "operations:export": "node tools/export-operations.mjs", "operations:worker": "node tools/operations-worker.mjs"},
+  "engines": {"node": ">=24"}
 }

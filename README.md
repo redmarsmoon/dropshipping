@@ -4,7 +4,7 @@ Dialashop is a static-first US store foundation built on the original HTML/CSS/J
 
 ## Develop and deploy
 
-Requires Node 22+ and Python for the optional local server. No npm packages are required.
+Requires Node 24+ and Python for the optional public-site server. No npm packages are required.
 
 ```powershell
 npm.cmd run build
@@ -37,10 +37,12 @@ Set build variable `SITE_URL` to the verified HTTPS store origin; default retain
 - Browser-local cart/wishlist with storage error handling, stale item reconciliation and cross-tab updates. Monetary math uses integer cents.
 - Guest address form with US state, ZIP and required-field format checks; no address verification service is connected. No form sends personal information to an unconfigured service.
 - Static page metadata, canonicals, Open Graph, breadcrumbs, product offers only with actual catalog data, sitemap, robots, 404 and security headers.
+- Private Node/SQLite operations service with staff roles, product/category/supplier management, CSV imports, pricing approvals, inventory updates, orders, returns, tickets, promotions, shipping rules, reporting, audit records and notification outbox.
+- Consent preferences, UTM capture after consent, related/accessory/cart recommendations, empty real-data Google and Meta feeds, returns and support foundations.
 
 ## Not live yet
 
-Authentication, payment, shipping quotes, tax, address deliverability verification, durable orders, confirmations, email, tracking lookup, contact delivery, newsletters, reviews ingestion, supplier synchronization, forwarding, refunds and cancellations need configured services and implementation in the commerce adapter. Policy pages contain truthful preparation information; they are not approved operational policies. See [docs/architecture.md](docs/architecture.md) and [docs/implementation-report.md](docs/implementation-report.md).
+The private operations foundation is functional locally, but production authentication, payment, tax, address deliverability, email, supplier feeds/forwarding, carrier tracking, contact/newsletter delivery, live chat and reviews need configured services. Policy pages contain truthful preparation information; they are not approved operational policies. See [docs/operations.md](docs/operations.md), [docs/architecture.md](docs/architecture.md), and [docs/implementation-report.md](docs/implementation-report.md).
 
 ## GitHub Pages deployment
 

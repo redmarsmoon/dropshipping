@@ -1,0 +1,17 @@
+PRAGMA foreign_keys=ON;
+PRAGMA journal_mode=WAL;
+CREATE TABLE IF NOT EXISTS schema_version(version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL);
+INSERT OR IGNORE INTO schema_version VALUES(1,datetime('now'));
+CREATE TABLE IF NOT EXISTS users(id TEXT PRIMARY KEY,email TEXT UNIQUE NOT NULL,password_hash TEXT NOT NULL,role TEXT NOT NULL CHECK(role IN ('owner','catalog','fulfillment','support','analyst')),disabled INTEGER NOT NULL DEFAULT 0,created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS sessions(token_hash TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),csrf TEXT NOT NULL,expires_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS records(kind TEXT NOT NULL,id TEXT NOT NULL,data TEXT NOT NULL CHECK(json_valid(data)),version INTEGER NOT NULL DEFAULT 1,updated_at TEXT NOT NULL,PRIMARY KEY(kind,id));
+CREATE UNIQUE INDEX IF NOT EXISTS product_sku ON records(json_extract(data,'$.sku')) WHERE kind='products';
+CREATE UNIQUE INDEX IF NOT EXISTS product_slug ON records(json_extract(data,'$.slug')) WHERE kind='products';
+CREATE UNIQUE INDEX IF NOT EXISTS promo_code ON records(json_extract(data,'$.code')) WHERE kind='promotions';
+CREATE TABLE IF NOT EXISTS orders(id TEXT PRIMARY KEY,order_number TEXT UNIQUE NOT NULL,customer_id TEXT NOT NULL,data TEXT NOT NULL CHECK(json_valid(data)),idempotency_key TEXT UNIQUE NOT NULL,request_hash TEXT NOT NULL,payment_reference TEXT UNIQUE,version INTEGER NOT NULL DEFAULT 1,created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS webhook_events(provider TEXT NOT NULL,event_id TEXT NOT NULL,processed_at TEXT NOT NULL,PRIMARY KEY(provider,event_id));
+CREATE TABLE IF NOT EXISTS promotion_redemptions(code TEXT NOT NULL,order_id TEXT NOT NULL REFERENCES orders(id),PRIMARY KEY(code,order_id));
+CREATE TABLE IF NOT EXISTS outbox(id TEXT PRIMARY KEY,event_key TEXT UNIQUE NOT NULL,kind TEXT NOT NULL,payload TEXT NOT NULL,status TEXT NOT NULL DEFAULT 'pending',attempts INTEGER NOT NULL DEFAULT 0,next_attempt_at INTEGER NOT NULL,lease_until INTEGER,provider_reference TEXT,updated_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY AUTOINCREMENT,actor TEXT NOT NULL,action TEXT NOT NULL,entity TEXT NOT NULL,details TEXT NOT NULL,created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS recovery_tokens(token_hash TEXT PRIMARY KEY,checkout_id TEXT NOT NULL,customer_id TEXT NOT NULL,expires_at INTEGER NOT NULL,used_at INTEGER);
+CREATE TABLE IF NOT EXISTS rate_limits(bucket TEXT PRIMARY KEY,count INTEGER NOT NULL,resets_at INTEGER NOT NULL);
